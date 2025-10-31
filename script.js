@@ -31,3 +31,17 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
+
+// Remove DeepSite watermark if it appears
+document.addEventListener("DOMContentLoaded", () => {
+    const badge = document.querySelector("#deepsite-badge-wrapper");
+    if (badge) badge.remove();
+});
+
+// Watch for reinjections (if that annoying script keeps coming back)
+const observerBadge = new MutationObserver(() => {
+    const badge = document.querySelector("#deepsite-badge-wrapper");
+    if (badge) badge.remove();
+});
+
+observerBadge.observe(document.body, { childList: true, subtree: true });
